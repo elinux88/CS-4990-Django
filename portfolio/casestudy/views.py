@@ -8,4 +8,5 @@ class IndexView(generic.ListView):
     model = CaseStudy
 
 class DetailView(generic.DetailView):
-    pass
+    model = CaseStudy
+    template_name = 'casestudy/detail.html'
