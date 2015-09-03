@@ -1,3 +1,11 @@
 from django.shortcuts import render
+from django.views import generic
 
-# Create your views here.
+from .models import CaseStudy, Item
+
+class IndexView(generic.ListView):
+    template_name = 'casestudy/index.html'
+    model = CaseStudy
+
+class DetailView(generic.DetailView):
+    pass
