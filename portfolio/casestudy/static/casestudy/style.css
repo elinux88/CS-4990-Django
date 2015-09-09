@@ -14,8 +14,17 @@ main {
   width: 50%;
 }
 
+h1 {
+  color: #9FC;
+}
+
 ul {
   list-style: none;
+}
+
+li {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 li a {
@@ -30,4 +39,8 @@ td img {
   box-shadow: 0 0 25px #000;
   height: auto;
   width: 700px;
+}
+
+.title {
+  background-color: #9FC;
 }
