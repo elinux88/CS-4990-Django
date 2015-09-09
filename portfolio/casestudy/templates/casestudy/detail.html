@@ -1,3 +1,7 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'casestudy/style.css' %}" />
+
 <h1>{{ casestudy.name }}</h1>
 
 {% if casestudy.item_set %}

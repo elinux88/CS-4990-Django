@@ -1,0 +1,33 @@
+* {
+  font-family: 'Avenir', Arial, sans-serif;
+}
+
+body {
+  background-color: #0A5;
+}
+
+main {
+  background-color: #9FC;
+  border-radius: 20px;
+  float: left;
+  min-height: 100%;
+  width: 50%;
+}
+
+ul {
+  list-style: none;
+}
+
+li a {
+  color: #0A5;
+}
+
+td {
+  padding: 10px;
+}
+
+td img {
+  box-shadow: 0 0 25px #000;
+  height: auto;
+  width: 700px;
+}

@@ -1,8 +1,15 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'casestudy/style.css' %}" />
+
+<main>
 {% if casestudy_list %}
     <ul>
         {% for study in casestudy_list %}
 
-        <li><a href="{% url 'casestudy:detail' study.id %}">{{study.name}}</a> - {{study.description}}</li>
+          <li><a href="{% url 'casestudy:detail' study.id %}">
+                {{study.name}}
+              </a> - {{study.description}}</li>
 
         {% endfor %}
     </ul>
@@ -12,3 +19,4 @@
     <p>No case studies to show.</p>
 
 {% endif %}
+</main>
