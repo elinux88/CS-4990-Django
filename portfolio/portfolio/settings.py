@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'casestudy',
-    'thumbnails',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -106,33 +105,3 @@ STATIC_URL = '/static/'
 # Adding Media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-THUMBNAILS = {
-    'METADATA': {
-        'BACKEND': 'thumbnails.backends.metadata.DatabaseBackend',
-    },
-    'STORAGE': {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
-    },
-    'SIZES': {
-        'small': {
-            'PROCESSORS': [
-                {'PATH': 'thumbnails.processors.resize', 'width': 10, 'height': 10},
-                {'PATH': 'thumbnails.processors.crop', 'width': 80, 'height': 80},
-            ],
-            'POST_PROCESSORS': [
-                {
-                    'processor': 'thumbnails.post_processors.optimize',
-                    'png_command': 'optipng -force -o7 "%(filename)s"',
-                    'jpg_command': 'jpegoptim -f --strip-all "%(filename)s"',
-                },
-            ],
-        },
-        'large': {
-            'PROCESSORS': [
-                {'PATH': 'thumbnails.processors.resize', 'width': 20, 'height': 20},
-                {'PATH': 'thumbnails.processors.flip', 'direction': 'horizontal'}
-            ],
-        }
-    }
-}
