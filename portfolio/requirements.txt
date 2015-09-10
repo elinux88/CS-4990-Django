@@ -3,4 +3,5 @@ Pillow==2.9.0
 argparse==1.2.1
 da-vinci==0.2.2
 shortuuid==0.4.2
+sorl-thumbnail==12.3
 wsgiref==0.1.2
