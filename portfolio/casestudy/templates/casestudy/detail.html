@@ -1,26 +1,26 @@
-{% load staticfiles %}
+{% extends 'base.html' %}
+{% load thumbnail %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'casestudy/style.css' %}" />
+{% block 'title' %}{{ casestudy.name }}{% endblock %}
 
-<h1>{{ casestudy.name }}</h1>
+{% block 'content' %}
+  <h1>{{ casestudy.name }}</h1>
+  {% if casestudy.item_set %}
+    <table>
+    {% for item in casestudy.item_set.all %}
+      <tr class="title">
+        <td colspan='2'>{{ item.title }}</td>
+      </tr>
 
-{% if casestudy.item_set %}
-
-<table>
-
-{% for item in casestudy.item_set.all %}
-
-<tr class="title">
-    <td colspan='2'>{{ item.title }}</td>
-</tr>
-
-<tr>
-    <td colspan='1'><img src="/media/{{ item.image }}"></td>
-    <td colspan='1'>{{ item.description }}</td>
-</tr>
-
-{% endfor %}
-
-</table>
-
-{% endif %}
+      <tr>
+        <td>
+          {% thumbnail item.image "300x300" crop="center" as im %}
+          <img src="{{ im.url }}">
+          {% endthumbnail %}
+        </td>
+        <td>{{ item.description }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+  {% endif %}
+{% endblock %}<!-- 'content' -->
