@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block 'title' %}Most Recent Blog Posts{% endblock %}
+
+{% block 'content' %}
+  <h1>Most Recent Blog Posts</h1>
+  {% if post_list %}
+      {% for post in post_list %}
+        <div>
+          {% include 'blogapp/_post.html' %}
+        </div>
+      {% endfor %}
+  {% else %}
+      <p>Sorry folks. No posts to show.</p>
+
+  {% endif %}
+{% endblock 'content' %}
