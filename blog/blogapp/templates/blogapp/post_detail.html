@@ -5,5 +5,16 @@
 {% block 'content' %}
   <div>
     {% include 'blogapp/_post.html' %}
+    {% for comment in post.comment_set.all reversed %}
+      <h5>On {{ comment.pub_date|date:"M d, Y h:m:s" }}, {{ comment.person }} said:</h5>
+      <div class="well">
+        {{ comment.comment_text }}
+      </div>
+      {% if not forloop.last %}
+        <hr style="border-top: 2px solid #CCC;">
+      {% endif %}
+    {% empty %}
+      <p>Be the first of your friends to comment on this post.</p>
+    {% endfor %}
   </div>
 {% endblock 'content' %}

@@ -6,12 +6,20 @@
   {% endthumbnail %}
 {% endif %}
 <a href="{% url 'blogapp:detail' post.id %}"><h2>{{post.title}}</h2></a><br />
-<h4 class="published">Published {{ post.pub_date|date:"M d, Y" }}</h4>
+<h4 class="published">
+  Published {{ post.pub_date|date:"M d, Y" }}
+  (Filed in: 
+  {% for category in post.category.all %}
+    <a href="{% url 'blogapp:categorydetail' category.id %}">{{ category.category_name }}</a>
+  {% empty %}
+  {% endfor %}
+  )
+</h4>
 <div class="post-body">
   {{ post.body }}
 </div>
 
 <a href="{% url 'blogapp:detail' post.id %}#comment-section">Leave a comment</a>
 {% if not forloop.last %}
-  <hr style="border-top: 2px solid black;">
+  <hr style="border-top: 2px solid #CCC;">
 {% endif %}
