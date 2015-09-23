@@ -16,5 +16,10 @@
     {% empty %}
       <p>Be the first of your friends to comment on this post.</p>
     {% endfor %}
+    <form action="/your-comment/" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Submit" />
+    </form>
   </div>
 {% endblock 'content' %}

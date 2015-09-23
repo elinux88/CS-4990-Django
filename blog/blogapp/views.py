@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 
+from .forms import CommentForm
 from .models import Post, Comment, Category
 
 class IndexView(generic.ListView):
@@ -21,4 +22,19 @@ class PostDetailView(generic.DetailView):
 
 class CategoryDetailView(generic.DetailView):
     model = Category
-    # query set
+
+def getCategory(request, categorySlug):
+    posts = Post.objects.all().order_by('-pub_date')
+    category_posts = []
+    for post in posts:
+        if post.category.filter(slug=categorySlug):
+            category_posts.append(post)
+
+def get_comment(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('blogapp/index')
+    else:
+        form = CommentForm()
+    return render(request, 'blogapp/post_detail.html', {'form': form})
