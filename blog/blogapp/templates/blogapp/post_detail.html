@@ -16,10 +16,16 @@
     {% empty %}
       <p>Be the first of your friends to comment on this post.</p>
     {% endfor %}
-    <form action="/your-comment/" method="post">
-      {% csrf_token %}
-      {{ form }}
-      <input type="submit" value="Submit" />
-    </form>
+    <!--   <form action="% url 'blogapp:comment' %}" method="post">-->
+<!--     % csrf_token %}-->
+<!--     <table class="table">-->
+<!--       { form }}-->
+<!--       <tr>-->
+<!--         <td>-->
+<!--           <input type="submit" value="Add Comment" />-->
+<!--         </td>-->
+<!--       </tr>-->
+<!--     </table>-->
+<!--   </form>-->
   </div>
 {% endblock 'content' %}
