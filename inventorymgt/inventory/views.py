@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import JsonResponse
-from django.views.model import model_to_dict
+from django.forms.models import model_to_dict
 
 from .models import Item, Category
 

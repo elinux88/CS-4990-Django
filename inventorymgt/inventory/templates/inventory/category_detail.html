@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block 'title' %}Category: {{ category.name }}{% endblock %}
+
+{% block 'content' %}
+  <h1>{{ category.name }} Category</h1>
+
+  <ul style="list-style-type: none;">
+  {% for item in category.item_set.all %}
+    <li class="list-group-item">
+      {{ item.name }}<br>
+      Quantity: {{ item.quantity }}<br>
+      SKU: {{ item.sku }}
+    </li>
+  {% endfor %}
+  </ul>
+
+{% endblock 'content' %}
