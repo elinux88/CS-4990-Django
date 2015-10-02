@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 
+from .forms import ItemForm
 from .models import Item, Category
 
 class AjaxableResponseMixin(object):
@@ -35,6 +36,11 @@ class CategoryListView(ListView):
 
 class CategoryDetailView(DetailView):
     model = Category
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CategoryDetailView, self).get_context_data(**kwargs)
+        context["item_form"] = ItemForm(initial={'quantity': 0})
+        return context
 
 class CreateCategoryView(CreateView):
     model = Category

@@ -2,6 +2,34 @@
 
 {% block 'title' %}Category: {{ category.name }}{% endblock %}
 
+{% block 'extrascripts' %}
+<script>
+
+$(document).ready(function () {
+    $('#itemform').submit(
+    function (event) {
+
+        event.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'post',
+            data: $(this).serialize(),
+            success: function (data) {
+                $('#status').text('Successfully updated ' + data.title).show().fadeOut(5000);
+                console.log(data);
+            },
+            error: function (xd4, statusText, errorText) {
+                $('#status').text('Sorry. Something broke.');
+                console.log("error was " + statusText + " and error text was " + errorText);
+            },
+        });
+    });
+});
+
+</script>
+{% endblock %}
+
 {% block 'content' %}
   <h1>{{ category.name }} Category</h1>
 
@@ -9,8 +37,13 @@
   {% for item in category.item_set.all %}
     <li class="list-group-item">
       {{ item.name }}<br>
-      Quantity: {{ item.quantity }}<br>
       SKU: {{ item.sku }}
+      <form action="{% url 'inventory:updateitem' item.id %}" method="post" id="itemform">
+      {% csrf_token %}
+      <table class="table">
+        {{ item_form }}
+      </table>
+      </form>
     </li>
   {% endfor %}
   </ul>
