@@ -5,3 +5,4 @@
 * Polls App
 * Portfolio
 * Blog
+* Inventory Management
