@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block 'title' %}Item Deleted{% endblock %}
+
+{% block 'content' %}
+<h1>Item deleted</h1>
+
+<p>That item was successfully deleted. <a href="{% url 'inventory:categorydetail' item.category.id %}">Go back to the list of items.</a></p>
+{% endblock %}

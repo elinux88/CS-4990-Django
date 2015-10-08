@@ -16,15 +16,34 @@ $(document).ready(function () {
             type: 'post',
             data: $(this).serialize(),
             success: function (data) {
-                $('#status').text('Successfully updated ' + data.title).show().fadeOut(5000);
+                $('#status').text('Successfully updated ' + data.title).show();
                 console.log(data);
             },
             error: function (xd4, statusText, errorText) {
-                $('#status').text('Sorry. Something broke.');
-                console.log("error was " + statusText + " and error text was " + errorText);
+                $('#status').text('Sorry. Something broke.').show();
+                console.log(statusText + " : " + errorText);
             },
         });
     });
+
+    $('#save_quantity').click(function() {
+      var e = $('#id_quantity').val();
+      console.log('click', e);
+    });
+
+    $("#increment").click(
+      function (event) {
+        form = $(this).parents("form");
+        form.find("#id_quantity").val(Number(form.find("#id_quantity").val()) + 1);
+        form.submit();
+      });
+
+    $("#decrement").click(
+      function (event) {
+        form = $(this).parents("form");
+        form.find("#id_quantity").val(Number(form.find("#id_quantity").val()) - 1);
+        form.submit();
+      });
 });
 
 </script>
@@ -33,16 +52,20 @@ $(document).ready(function () {
 {% block 'content' %}
   <h1>{{ category.name }} Category</h1>
 
+  <div id="status" class="alert alert-success" style="display: none;" role="alert"></div>
+
   <ul style="list-style-type: none;">
   {% for item in category.item_set.all %}
     <li class="list-group-item">
       {{ item.name }}<br>
       SKU: {{ item.sku }}
-      <form action="{% url 'inventory:updateitem' item.id %}" method="post" id="itemform">
-      {% csrf_token %}
-      <table class="table">
-        {{ item_form }}
-      </table>
+      quantity: {{ item.quantity }}
+      <form action="." method="post" id="itemform">
+        {% csrf_token %}
+        {{ item_form.as_p }}
+        <button id="increment" class="btn btn-default"> + </button>
+        <button id="decrement" class="btn btn-default"> - </button>
+        <!--<button type=submit class="btn btn-primary">Save Quantity</button>-->
       </form>
     </li>
   {% endfor %}

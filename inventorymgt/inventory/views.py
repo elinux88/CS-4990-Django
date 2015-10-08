@@ -42,6 +42,11 @@ class CategoryDetailView(DetailView):
         context["item_form"] = ItemForm(initial={'quantity': 0})
         return context
 
+    def render_to_response(self, context, **kwargs):
+        if self.request.is_ajax():
+            return JsonResponse(searializers.serialize('json', self.object))
+        return super(CategoryDetailView, self).render_to_response(context, **kwargs)
+
 class CreateCategoryView(CreateView):
     model = Category
     fields = ['parent', 'name', 'description']
@@ -58,7 +63,7 @@ class UpdateCategoryView(UpdateView):
 
 class DeleteCategoryView(DeleteView):
     model = Category
-    success_url = reverse_lazy('inventory:deletecategorysuccess')
+    success_url = reverse_lazy('inventory:categorydeletesuccess')
 
 class ItemListView(ListView):
     model = Item
@@ -73,7 +78,7 @@ class CreateItemView(CreateView):
     def get_success_url(self):
         return reverse('inventory:categorydetail', args=(self.object.category.id,))
 
-class UpdateItemView(UpdateView):
+class UpdateItemView(AjaxableResponseMixin, UpdateView):
     model = Item
     fields = ['name', 'quantity', 'sku', 'category']
 
@@ -82,4 +87,5 @@ class UpdateItemView(UpdateView):
 
 class DeleteItemView(DeleteView):
     model = Item
-    success_url = reverse_lazy('inventory:deleteitemsuccess')
+    success_url = reverse_lazy('inventory:itemdeletesuccess')
+
