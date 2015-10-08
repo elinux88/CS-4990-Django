@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block 'title' %}Item: {{ item.name }}{% endblock %}
+
+{% block 'extrascripts' %}
+<script>
+
+$(document).ready(function () {
+    $('#itemform').submit(
+    function (event) {
+
+        event.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'post',
+            data: $(this).serialize(),
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (xd4, statusText, errorText) {
+                console.log(statusText + " : " + errorText);
+            },
+        });
+    });
+
+    $("#increment").click(
+      function (event) {
+        form = $(this).parents("form");
+        form.find("#id_quantity").val(Number(form.find("#id_quantity").val()) + 1);
+        form.submit();
+      });
+
+    $("#decrement").click(
+      function (event) {
+        form = $(this).parents("form");
+        form.find("#id_quantity").val(Number(form.find("#id_quantity").val()) - 1);
+        form.submit();
+      });
+});
+
+</script>
+{% endblock %}
+
+{% block 'content' %}
+  <h1>{{ item.name }}</h1>
+
+  <form action="." method="post" id="itemform">
+    {% csrf_token %}
+    <table class="table">
+      {{ form }}
+      <tr>
+        <td>
+          <button id="increment" class="btn btn-default"> + </button>
+          <button id="decrement" class="btn btn-default"> - </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+{% endblock 'content' %}

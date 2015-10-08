@@ -1,11 +1,10 @@
+from django.core.urlresolvers import reverse_lazy, reverse
+from django.forms.models import model_to_dict
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.core.urlresolvers import reverse_lazy, reverse
-from django.http import JsonResponse
-from django.forms.models import model_to_dict
 
-from .forms import ItemForm
 from .models import Item, Category
 
 class AjaxableResponseMixin(object):
@@ -37,16 +36,6 @@ class CategoryListView(ListView):
 class CategoryDetailView(DetailView):
     model = Category
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(CategoryDetailView, self).get_context_data(**kwargs)
-        context["item_form"] = ItemForm(initial={'quantity': 0})
-        return context
-
-    def render_to_response(self, context, **kwargs):
-        if self.request.is_ajax():
-            return JsonResponse(searializers.serialize('json', self.object))
-        return super(CategoryDetailView, self).render_to_response(context, **kwargs)
-
 class CreateCategoryView(CreateView):
     model = Category
     fields = ['parent', 'name', 'description']
@@ -71,19 +60,25 @@ class ItemListView(ListView):
 class ItemDetailView(DetailView):
     model = Item
 
+    def render_to_response(self, context, **kwargs):
+        if self.request.is_ajax():
+            return JsonResponse(searializers.serialize('json', self.object))
+        return super(ItemDetailView, self).render_to_response(context, **kwargs)
+
 class CreateItemView(CreateView):
     model = Item
     fields = ['name', 'quantity', 'sku', 'category']
-
-    def get_success_url(self):
-        return reverse('inventory:categorydetail', args=(self.object.category.id,))
+    success_url = reverse_lazy('inventory:additem')
 
 class UpdateItemView(AjaxableResponseMixin, UpdateView):
     model = Item
-    fields = ['name', 'quantity', 'sku', 'category']
+    fields = ['category', 'name', 'sku', 'quantity']
+    success_url = reverse_lazy('inventory:updateitem')
 
-    def get_success_url(self):
-        return reverse('inventory:categorydetail', args=(self.object.category.id,))
+#   def get_context_data(self, *args, **kwargs):
+#       context = super(UpdateItemView, self).get_context_data(**kwargs)
+#       context["item_form"] = ItemForm(initial={'quantity': 0})
+#       return context
 
 class DeleteItemView(DeleteView):
     model = Item

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.core.validators import MinValueValidator
 
 class Item(models.Model):
@@ -9,6 +10,9 @@ class Item(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('inventory:updateitem', kwargs={'pk': self.pk})
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
