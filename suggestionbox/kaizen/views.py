@@ -16,7 +16,13 @@ class IdeaDetailView(DetailView):
 
 class CreateIdeaView(CreateView):
     model = Idea
-    fields = ['profile', 'title', 'description', 'category']
+    exclude = ['profile']
+    fields = ['title', 'description', 'category']
+
+    def form_valid(self, form):
+        u = form.save(commit=False)
+        u.profile = Profile.objects.filter(user=self.request.user)
+        u.save()
 
     def get_success_url(self):
         return reverse('kaizen:addidea')
