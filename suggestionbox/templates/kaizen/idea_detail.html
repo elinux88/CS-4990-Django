@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
-{% block 'title' %}Add a Kaizen{% endblock %}
+{% block 'title' %}Kaizen{% endblock %}
 
 {% block 'content' %}
-    <h1>Add a Kaizen</h1>
+    <h1>Kaizen</h1>
+    <p>
+      <a href="{% url 'kaizen:idealist' %}">All</a> --
+      <a href="{% url 'kaizen:editidea' idea.id %}">Edit</a>
+    </p>
 
+    {% include 'kaizen/_idea.html' %}
 
 {% endblock %}

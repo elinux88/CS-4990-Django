@@ -16,16 +16,24 @@ class IdeaDetailView(DetailView):
 
 class CreateIdeaView(CreateView):
     model = Idea
-    exclude = ['profile']
-    fields = ['title', 'description', 'category']
+    #exclude = ['profile']
+    #fields = ['title', 'description', 'category']
+    fields = ['profile', 'title', 'description', 'category']
 
-    def form_valid(self, form):
-        u = form.save(commit=False)
-        u.profile = Profile.objects.filter(user=self.request.user)
-        u.save()
+#   def form_valid(self, form):
+#       u = form.save(commit=False)
+#       u.profile = Profile.objects.filter(user=self.request.user)
+#       u.save()
 
     def get_success_url(self):
-        return reverse('kaizen:addidea')
+        return reverse('kaizen:idealist')
+
+class UpdateIdeaView(UpdateView):
+    model = Idea
+    fields = ['title', 'description', 'category']
+
+    def get_success_url(self):
+        return reverse('kaizen:ideadetail', args=(self.object.pk,))
 
 class SecretView(TemplateView):
     template_name="kaizen/secret.html"
