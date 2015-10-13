@@ -3,12 +3,17 @@
 {% block 'title' %}List of Kaizens{% endblock %}
 
 {% block 'content' %}
-    <h1>List of User-submitted Kaizens</h1>
+    <h1>Kaizens</h1>
+    <p><a href="{% url 'kaizen:addidea' %}">Add a Kaizen</a></p>
 
     {% for idea in idea_list %}
-        <div {% ifequal idea.profile.user request.user %}class="mark"{% endifequal %}>
+      <div {% if idea.profile.user == request.user %}
+                class="list-group-item active"
+           {% else %}
+                class="list-group-item"
+           {% endif %}>
         <h3>{{ idea.title }}</h3>
-        <h4>Submitted by {{ idea.profile }} on {{ idea.pub_date|date:"m d Y" }}</h4>
+        <h4>Submitted by {{ idea.profile }} on {{ idea.pub_date|date:"m-d-Y" }}</h4>
         <p>
             {{ idea.description }}
         </p>
@@ -25,9 +30,8 @@
         </div>
 
     {% empty %}
-        <p>No kaizens submited yet. Want to <a href="">submit one?</a></p>
+    <p>No kaizens submited yet. Want to <a href="{% url 'kaizen:addidea' %}">submit one?</a></p>
 
     {% endfor %}
-    
 
 {% endblock %}

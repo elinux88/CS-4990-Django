@@ -23,8 +23,7 @@ class Idea(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=3, 
-                choices=STATUS)
+    status = models.CharField(max_length=3, choices=STATUS, blank=True, null=True)
     category = models.ForeignKey('Category')
 
     def __unicode__(self):

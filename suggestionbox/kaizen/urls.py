@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', login_required(views.IdeaListView.as_view()), name="idealist"),
+    url(r'^addidea/$', login_required(views.CreateIdeaView.as_view()), name="addidea"),
     url(r'^secrets/$', login_required(views.SecretView.as_view()), name="secret"),
 ]
