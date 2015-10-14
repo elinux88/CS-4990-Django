@@ -6,3 +6,4 @@
 * Portfolio
 * Blog
 * Inventory Management
+* Kaizen Suggestion Box
