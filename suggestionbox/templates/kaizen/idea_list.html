@@ -4,7 +4,9 @@
 
 {% block 'content' %}
     <h1>Kaizens</h1>
-    <p><a href="{% url 'kaizen:addidea' %}">Add a Kaizen</a></p>
+    <p>
+      <a href="{% url 'kaizen:addidea' %}"><button class="btn btn-default">Add a Kaizen</button></a>
+    </p>
 
     {% for idea in idea_list %}
         {% include 'kaizen/_idea.html' %}

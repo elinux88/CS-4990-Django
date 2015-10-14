@@ -26,17 +26,18 @@ class IdeaDetailView(DetailView):
 
 class CreateIdeaView(CreateView):
     model = Idea
-    #exclude = ['profile']
-    #fields = ['title', 'description', 'category']
-    fields = ['profile', 'title', 'description', 'category']
+    exclude = ['profile']
+    fields = ['title', 'description', 'category']
+    #fields = ['profile', 'title', 'description', 'category']
 
     def get_success_url(self):
         return reverse('kaizen:idealist')
 
-#   def form_valid(self, form):
-#       u = form.save(commit=False)
-#       u.profile = Profile.objects.filter(user=self.request.user)
-#       u.save()
+    def form_valid(self, form):
+        u = form.save(commit=False)
+        u.profile = Profile.objects.filter(user=self.request.user)[0]
+        u.save()
+        return super(CreateIdeaView, self).form_valid(form)
 
 class PostCommentFormView(FormView, SingleObjectMixin):
     form_class = CommentForm
@@ -46,7 +47,7 @@ class PostCommentFormView(FormView, SingleObjectMixin):
     def form_valid(self, form):
        comment = Comment()
        comment.idea = get_object_or_404(Idea, pk=form.cleaned_data["idea_id"])
-       comment.profile = form.request.user
+       comment.name = Profile.objects.filter(user=self.request.user)[0].user.username
        comment.comment_text = form.cleaned_data['comment']
        comment.save()
        return super(PostCommentFormView, self).form_valid(form)
