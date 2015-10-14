@@ -16,17 +16,6 @@ class IdeaListView(ListView):
 class IdeaDetailView(DetailView):
     model = Idea
 
-class CreateIdeaView(CreateView):
-    model = Idea
-    #exclude = ['profile']
-    #fields = ['title', 'description', 'category']
-    fields = ['profile', 'title', 'description', 'category']
-
-#   def form_valid(self, form):
-#       u = form.save(commit=False)
-#       u.profile = Profile.objects.filter(user=self.request.user)
-#       u.save()
-
     def get_success_url(self):
         return reverse('kaizen:idealist')
 
@@ -34,6 +23,20 @@ class CreateIdeaView(CreateView):
         context = super(IdeaDetailView, self).get_context_data()
         context["form"] = CommentForm(initial={'idea_id': self.object.pk})
         return context;
+
+class CreateIdeaView(CreateView):
+    model = Idea
+    #exclude = ['profile']
+    #fields = ['title', 'description', 'category']
+    fields = ['profile', 'title', 'description', 'category']
+
+    def get_success_url(self):
+        return reverse('kaizen:idealist')
+
+#   def form_valid(self, form):
+#       u = form.save(commit=False)
+#       u.profile = Profile.objects.filter(user=self.request.user)
+#       u.save()
 
 class PostCommentFormView(FormView, SingleObjectMixin):
     form_class = CommentForm
