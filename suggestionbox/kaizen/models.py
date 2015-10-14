@@ -35,7 +35,8 @@ class Category(models.Model):
         return self.title
 
 class Comment(models.Model):
+    profile = models.ForeignKey(Profile)
     comment_text = models.TextField()
     idea = models.ForeignKey(Idea)
     pub_date = models.DateTimeField(auto_now_add=True)
-    
+

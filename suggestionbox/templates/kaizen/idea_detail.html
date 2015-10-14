@@ -5,10 +5,21 @@
 {% block 'content' %}
     <h1>Kaizen</h1>
     <p>
-      <a href="{% url 'kaizen:idealist' %}">All</a> --
-      <a href="{% url 'kaizen:editidea' idea.id %}">Edit</a>
+      <a href="{% url 'kaizen:idealist' %}">All</a>
+      {% if idea.profile.user == request.user %}
+      -- <a href="{% url 'kaizen:editidea' idea.id %}">Edit</a>
+      {% endif %}
     </p>
 
     {% include 'kaizen/_idea.html' %}
+
+    <h5>Leave a Comment:</h5>
+    <form action="{% url 'kaizen:submitcomment' %}" method="post">
+      {% csrf_token %}
+      <table class="table">
+      {{ form }}
+      </table>
+      <button type="submit" class="btn btn-primary">Add Comment</button>
+    </form>
 
 {% endblock %}
