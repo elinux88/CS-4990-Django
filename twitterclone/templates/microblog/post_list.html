@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block 'title' %}List of all microposts{% endblock %}
+
+{% block 'content' %}
+    <h1>Microposts</h1>
+    <p>
+      <a href="{% url 'microblog:addpost' %}"><button class="btn btn-default">Add a Micropost</button></a>
+    </p>
+
+    {% for post in post_list %}
+        {% include 'microblog/_post.html' %}
+
+    {% empty %}
+    <p>No microposts submited yet. Want to <a href="{% url 'microblog:addpost' %}">submit one?</a></p>
+
+    {% endfor %}
+
+{% endblock %}
