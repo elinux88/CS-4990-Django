@@ -28,7 +28,6 @@ class CreateIdeaView(CreateView):
     model = Idea
     exclude = ['profile']
     fields = ['title', 'description', 'category']
-    #fields = ['profile', 'title', 'description', 'category']
 
     def get_success_url(self):
         return reverse('kaizen:idealist')
@@ -45,12 +44,12 @@ class PostCommentFormView(FormView, SingleObjectMixin):
     success_url = reverse_lazy('kaizen:comment_success')
 
     def form_valid(self, form):
-       comment = Comment()
-       comment.idea = get_object_or_404(Idea, pk=form.cleaned_data["idea_id"])
-       comment.name = Profile.objects.filter(user=self.request.user)[0].user.username
-       comment.comment_text = form.cleaned_data['comment']
-       comment.save()
-       return super(PostCommentFormView, self).form_valid(form)
+        comment = Comment()
+        comment.idea = get_object_or_404(Idea, pk=form.cleaned_data["idea_id"])
+        comment.name = Profile.objects.filter(user=self.request.user)[0].user.username
+        comment.comment_text = form.cleaned_data['comment']
+        comment.save()
+        return super(PostCommentFormView, self).form_valid(form)
 
 class UpdateIdeaView(UpdateView):
     model = Idea
