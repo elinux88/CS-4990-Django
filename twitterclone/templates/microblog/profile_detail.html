@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block 'title' %}User Profile{% endblock %}
 
@@ -11,9 +12,13 @@
       {% endif %}
     </p>
 
-    {% include 'microblog/_post.html' %}
+    {% thumbnail profile.profile_picture "300x300" crop="center" as im %}
+      <img src="{{ im.url }}">
+    {% endthumbnail %}
 
-    {% for post in profile.post_set.all reversed %}
+    <p>{{ profile.bio }}</p>
+
+    {% for post in profile.post_set.all|slice:":10" reversed %}
         <h5>{{ post.pub_date|date:"Y-m-d h:m:s" }}, {{ post.name }} said:</h5>
         <div class="well">
         {{ post.body }}

@@ -5,7 +5,7 @@ class Profile(models.Model):
     user = models.ForeignKey(User)
     bio = models.TextField('Short Bio', blank=True, null=True)
     profile_picture = models.ImageField(upload_to="pics/%Y/%m/%d", blank=True, null=True)
-    following = models.ManyToMany('this', blank=True, null=True)
+    following = models.ManyToManyField('Profile', blank=True, null=True)
 
     def __unicode__(self):
         return self.user.get_full_name() or self.user.username
