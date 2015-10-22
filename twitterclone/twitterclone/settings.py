@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'debug_toolbar',
     'sorl.thumbnail',
     'registration',
     'microblog',

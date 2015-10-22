@@ -4,7 +4,7 @@
 {% block title %}User Profile{% endblock %}
 
 {% block content %}
-    <h1>User Profile</h1>
+    <h1>User Profile (Maybe not needed)</h1>
     <p>
       <a href="{% url 'microblog:postlist' %}"><button class="btn btn-default">All Posts</button></a>
       {% if idea.profile.user == request.user %}
@@ -13,22 +13,16 @@
     </p>
 
     {% thumbnail profile.profile_picture "300x300" crop="center" as im %}
-      <img src="{{ im.url }}" width="150" height="150">
+      <img src="{{ im.url }}" width="80" height="80">
     {% endthumbnail %}
-
-    {% if request.user.is_authenticated %}
-      <div class="btn followbutton">
-        <form action="{% url 'microblog:follow' profile.id %}" method="post">
-          {% csrf_token %}
-          <button type="submit">Follow @{{ profile.user.username }}</button>
-        </form>
-      </div>
-    {% endif %}
 
     <p>{{ profile.bio }}</p>
 
     {% for post in profile.post_set.all|slice:":10" reversed %}
-        {% include 'microblog/_post.html' %}
+        <h5>{{ post.pub_date|date:"Y-m-d h:m:s" }}, {{ post.name }} said:</h5>
+        <div class="well">
+        {{ post.body }}
+        </div>
 
         {% if not forloop.last %}
         <hr>

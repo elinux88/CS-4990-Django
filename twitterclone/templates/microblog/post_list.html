@@ -9,7 +9,7 @@
     </p>
 
     {% for post in post_list %}
-      <h5>{{ post.profile }} said on {{ post.pub_date|date:"m-d-Y" }}</h5>
+    <h5><a href="{% url 'microblog:profiledetail' post.profile.id %}">{{ post.profile }}</a> said on {{ post.pub_date|date:"m-d-Y" }}</h5>
       <ul style="list-style-type: none;">
         <li class="list-group-item">
           {{ post.body }}
