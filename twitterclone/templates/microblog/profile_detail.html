@@ -26,8 +26,9 @@
       </div>
     {% endif %}
 
-    <p>"{{ profile.bio }}" - {{ profile.user.username }} -</p>
+    <p>"{{ profile.bio }}" - {{ profile.user.username }}</p>
 
+    <h3>Last 10 Posts</h3>
     {% for post in profile.post_set.all|slice:":10" reversed %}
         {% include 'microblog/_post.html' %}
 

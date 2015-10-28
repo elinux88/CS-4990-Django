@@ -28,7 +28,8 @@ class MyFeedView(ListView):
     template_name = "microblog/myfeed.html"
 
     def get_queryset(self):
-        my_profile = self.request.user.profile_set.all()[0]
+        my_profile, created = Profile.objects.get_or_create(user = self.request.user)
+        #my_profile = self.request.user.profile_set.all()[0]
         following_profile_list = list(my_profile.following.all())
         following_profile_list.append(my_profile)
         return Post.objects.filter(profile__in = following_profile_list)
@@ -37,7 +38,11 @@ class FollowFormView(SingleObjectMixin, View):
     model = Profile
 
     def post(self, request, *args, **kwargs):
-        my_profile = request.user.profile_set.all()[0]
+        try:
+            my_profile = self.request.user.profile_set.all()[0]
+        except Profile.DoseNotExist:
+            my_profile = Profile(user = request.user, bio = '')
+        #my_profile = request.user.profile_set.all()[0]
         my_profile.following.add(self.get_object())
         my_profile.save()
         return HttpResponseRedirect(reverse('microblog:followsuccess', kwargs = {'pk': self.get_object().pk}))
