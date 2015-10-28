@@ -4,16 +4,17 @@
 {% block title %}User Profile{% endblock %}
 
 {% block content %}
-    <h1>User Profile</h1>
+  <h1>Profile for @{{ profile.user.username }}</h1>
     <p>
-      <a href="{% url 'microblog:postlist' %}"><button class="btn btn-default">All Posts</button></a>
-      {% if idea.profile.user == request.user %}
-      - - - <a href="{% url 'microblog:editprofile' profile.id %}"><button class="btn btn-default">Edit Profile</button></a>
+      <a href="{% url 'microblog:allposts' %}"><button class="btn btn-default">All Posts</button></a>
+      <a href="{% url 'microblog:myfeed' %}"><button class="btn btn-default">My Feed</button></a>
+      {% if profile.user == request.user %}
+      <a href="{% url 'microblog:updateprofile' profile.id %}"><button class="btn btn-default">Edit Profile</button></a>
       {% endif %}
     </p>
 
     {% thumbnail profile.profile_picture "300x300" crop="center" as im %}
-      <img src="{{ im.url }}" width="150" height="150">
+      <img src="{{ im.url }}" width="150" height="150" style="border: 1px solid black">
     {% endthumbnail %}
 
     {% if request.user.is_authenticated %}
@@ -25,7 +26,7 @@
       </div>
     {% endif %}
 
-    <p>{{ profile.bio }}</p>
+    <p>"{{ profile.bio }}" - {{ profile.user.username }} -</p>
 
     {% for post in profile.post_set.all|slice:":10" reversed %}
         {% include 'microblog/_post.html' %}
@@ -38,13 +39,5 @@
         <p>You don't have any microposts. Get microposting!</p>
 
     {% endfor %}
-
-    <form action="{% url 'microblog:addpost' %}" method="post">
-      {% csrf_token %}
-      <table class="table">
-      {{ form }}
-      </table>
-      <button type="submit" class="btn btn-primary">Add Post</button>
-    </form>
 
 {% endblock %}

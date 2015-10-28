@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView, View
+from django.views.generic import DetailView, ListView, UpdateView, View, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView
 
@@ -14,6 +14,13 @@ class ListAllPosts(ListView):
 
 class ProfileDetailView(DetailView):
     model = Profile
+
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    fields = ['bio', 'profile_picture']
+
+    def get_success_url(self):
+        return reverse('microblog:profiledetail', args=[Profile.objects.filter(user = self.request.user)[0].id])
 
 class MyFeedView(ListView):
     model = Post
@@ -33,9 +40,9 @@ class FollowFormView(SingleObjectMixin, View):
         my_profile = request.user.profile_set.all()[0]
         my_profile.following.add(self.get_object())
         my_profile.save()
-        return HttpResponseRedirect(reverse('microblog:followsuccess', kargs = {'pk': self.get_object().pk}))
+        return HttpResponseRedirect(reverse('microblog:followsuccess', kwargs = {'pk': self.get_object().pk}))
 
-class FollowSuccessView(SingleObjectMixin, TemplateView):
+class FollowSuccessView(DetailView):
     template_name = 'microblog/follow_success.html'
     model = Profile
 
@@ -44,7 +51,7 @@ class CreatePostView(CreateView):
     fields = ['body']
 
     def get_success_url(self):
-        return reverse('microblog:postlist')
+        return reverse('microblog:profiledetail', args=[Profile.objects.filter(user = self.request.user)[0].id])
 
     def form_valid(self, form):
         u = form.save(commit=False)

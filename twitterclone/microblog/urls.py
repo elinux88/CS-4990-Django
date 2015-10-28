@@ -6,8 +6,9 @@ from . import views
 urlpatterns = [
     url(r'^$', views.ListAllPosts.as_view(), name="allposts"),
     url(r'^user/(?P<pk>\d+)/$', views.ProfileDetailView.as_view(), name="profiledetail"),
+    url(r'^user/(?P<pk>\d+)/edit$', login_required(views.ProfileUpdateView.as_view()), name="updateprofile"),
     url(r'^myfeed/$', login_required(views.MyFeedView.as_view()), name="myfeed"),
     url(r'^user/(?P<pk>\d+)/follow$', login_required(views.FollowFormView.as_view()), name="follow"),
     url(r'^user/(?P<pk>\d+)/follow/success$', login_required(views.FollowSuccessView.as_view()), name="followsuccess"),
-    url(r'^newpost/$', views.CreatePostView.as_view(), name="addpost"),
+    url(r'^newpost/$', login_required(views.CreatePostView.as_view()), name="addpost"),
 ]
