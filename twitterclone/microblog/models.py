@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxLengthValidator
 
 class Profile(models.Model):
     user = models.ForeignKey(User)
@@ -12,7 +13,7 @@ class Profile(models.Model):
 
 class Post(models.Model):
     profile = models.ForeignKey(Profile)
-    body = models.CharField(max_length=140)
+    body = models.CharField(max_length=140, validators=[MaxLengthValidator(140)])
     pub_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
