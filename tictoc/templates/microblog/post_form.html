@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if post %}Update{% else %}New{% endif %} Micropost{% endblock %}
+
+{% block content %}
+  <h1>{% if post %}Update{% else %}Add{% endif %} your Micropost</h1>
+
+  <form action="." method="post" id="postform">
+    {% csrf_token %}
+    <table class="table">
+      {{ form }}
+    <tr><td>
+      <button type="submit" class="btn btn-primary">{% if post %}Update{% else %}Add{% endif %} Micropost</button>
+    </td></tr>
+    </table>
+  </form>
+
+{% endblock content %}

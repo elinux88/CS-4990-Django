@@ -1,0 +1,9 @@
+{% load thumbnail %}
+
+<h5>{{ post.pub_date|date:"Y-m-d h:m:s" }}, @{{ post.profile.user.username }} said:</h5>
+<div class="well">
+  {% thumbnail post.profile.profile_picture "300x300" crop="center" as im %}
+    <img src="{{ im.url }}" width="50" height="50" style="border: 1px solid black; margin-right: 10px">
+  {% endthumbnail %}
+  {{ post.body }}
+</div>
