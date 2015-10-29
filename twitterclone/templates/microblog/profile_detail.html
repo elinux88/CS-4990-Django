@@ -6,7 +6,6 @@
 {% block content %}
   <h1>Profile for @{{ profile.user.username }}</h1>
     <p>
-      <a href="{% url 'microblog:allposts' %}"><button class="btn btn-default">All Posts</button></a>
       <a href="{% url 'microblog:myfeed' %}"><button class="btn btn-default">My Feed</button></a>
       {% if profile.user == request.user %}
       <a href="{% url 'microblog:updateprofile' profile.id %}"><button class="btn btn-default">Edit Profile</button></a>
@@ -14,7 +13,7 @@
     </p>
 
     {% thumbnail profile.profile_picture "300x300" crop="center" as im %}
-      <img src="{{ im.url }}" width="150" height="150" style="border: 1px solid black">
+      <img src="{{ im.url }}" width="150" height="150" style="border: 1px solid black; margin-right: 10px">
     {% endthumbnail %}
 
     {% if request.user.is_authenticated %}
@@ -29,12 +28,8 @@
     <p>"{{ profile.bio }}" - {{ profile.user.username }}</p>
 
     <h3>Last 10 Posts</h3>
-    {% for post in profile.post_set.all|slice:":10" reversed %}
+    {% for post in profile.post_set.all|slice:":10" %}
         {% include 'microblog/_post.html' %}
-
-        {% if not forloop.last %}
-        <hr>
-        {% endif %}
 
     {% empty %}
         <p>You don't have any microposts. Get microposting!</p>

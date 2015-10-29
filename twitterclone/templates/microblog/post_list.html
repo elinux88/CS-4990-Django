@@ -1,40 +1,14 @@
 {% extends 'base.html' %}
-{% load thumbnail %}
 
-{% block title %}List of all microposts{% endblock %}
+{% block title %}Clock In{% endblock %}
 
 {% block content %}
-    <h1>Microposts</h1>
-    <p>
-      <a href="{% url 'microblog:myfeed' %}"><button class="btn btn-default">My Feed</button></a>
-      <a href="{% url 'microblog:addpost' %}"><button class="btn btn-default">Add a Micropost</button></a>
-    </p>
 
-    {% for post in post_list %}
-    <h5><a href="{% url 'microblog:profiledetail' post.profile.id %}">{{ post.profile }}</a> said on {{ post.pub_date|date:"m-d-Y" }}</h5>
-      <ul style="list-style-type: none;">
-        <li class="list-group-item">
-          {% thumbnail post.profile.profile_picture "300x300" crop="center" as im %}
-            <img src="{{ im.url }}" width="50" height="50" style="border: 1px solid black">
-          {% endthumbnail %}
-          {{ post.body }}
-        </li>
-      </ul>
-      {% if is_paginated %}
-        <div>
-          {% if page_obj.has_previous %}
-          <a href="/posts?page={{ page_obj.previous_page_number }}">Previous</a>
-          {% endif %}
-          <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-          {% if page_obj.has_next %}
-          <a href="/posts?page={{ page_obj.next_page_number }}">Next</a>
-          {% endif %}
-        </div>
-      {% endif %}
+<h1>Clock In</h1>
+<form action="." method="post">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit">Clock In</button>
+</form>
 
-    {% empty %}
-    <p>No microposts submited yet.</p>
-
-    {% endfor %}
-
-{% endblock content %}
+{% endblock %}
