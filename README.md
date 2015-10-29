@@ -7,3 +7,5 @@
 * Blog
 * Inventory Management
 * Kaizen Suggestion Box
+* Twitterclone
+* Time Clock
