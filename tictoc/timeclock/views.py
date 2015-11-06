@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import FormView, ListView
@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from .models import Punch, Project
 
 class ClockInOutView(FormView):
+    success_url = reverse_lazy('timeclock:ko')
 
     def get_template_names(self):
         template_name = 'timeclock/home_clockin.html'

@@ -6,8 +6,8 @@
 
 <h1>Clock Out</h1>
 
-<div class="timer" style="text-align: center">
-  <label id="hours">00</label>:<label id="minutes">00</label><label id="seconds">00</label>
+<div class="timer" style="background-color: #DDD; border: 2px solid black; border-radius: 5px; font-size: 50px; text-align: center; width: 222px;">
+  <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
 </div>
 <script>
   var sec = Math.floor(new Date().getTime() / 1000) - {{ last_punch.time_in|date:"U" }};
@@ -24,7 +24,7 @@
 <table class="table">
 {{ form }}
 </table>
-<button type="submit">Clock Out!</button>
+<button type="submit" class="btn btn-primary">Clock Out!</button>
 </form>
 
 {% endblock %}

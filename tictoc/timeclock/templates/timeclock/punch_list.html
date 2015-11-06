@@ -6,9 +6,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css" type="text/css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
   <script>
-    $(function () {
-        $('input[type="date"]').datepicker();
-    });
+  $(function () {
+      $('input[type="date"]').datepicker();
+  });
   </script>
 {% endblock %}
 
@@ -25,7 +25,7 @@
       <select name="user">
         <option value="">All Users</option>
         {% for user in users %}
-        <option value="{{ user.id }}">{% if {{ user.get_full_name }} %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}</option>
+        <option value="{{ user.id }}">{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}</option>
         {% endfor %}
       </select>
     </td>
@@ -61,7 +61,7 @@
     </td>
   </tr>
 </table>
-<button type="submit">Search!</button>
+<button type="submit" class="btn btn-default">Search!</button>
 </form>
 
 <hr>
@@ -100,8 +100,8 @@
 {% if punch_list %}
 <tfoot>
   <tr>
-    <td colspan="3" style="text-align:right;">Total Time:</td>
-    <td>{{ total_time }}</td>
+    <td colspan="3" style="text-align:right; font-weight: bold;">Total Time:</td>
+    <td style="font-weight: bold;">{{ total_time }}</td>
     <td></td>
   </tr>
 </tfoot>
@@ -111,11 +111,11 @@
 {% if is_paginated %}
   <div>
     {% if page_obj.has_previous %}
-      <a href="/?page={{ page_obj.previous_page_number }}">Previous</a>
+      <a href="/report/?page={{ page_obj.previous_page_number }}">Previous</a>
     {% endif %}
       <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
     {% if page_obj.has_next %}
-      <a href="/?page={{ page_obj.next_page_number }}">Next</a>
+      <a href="/report/?page={{ page_obj.next_page_number }}">Next</a>
     {% endif %}
   </div>
 {% endif %}
