@@ -68,7 +68,7 @@ class ReportView(ListView):
             queryset = queryset.filter(time_in__gte = self.request.GET.get("time_in"))
 
         if "time_out" in self.request.GET and self.request.GET["time_out"] != "":
-            queryset = queryset.filter(time_out__lte = self.request.GET.get("time_out"))
+            queryset = queryset.filter(time_out__lte = self.request.GET.get("time_in"))
 
         if "note" in self.request.GET and self.request.GET["note"] != "":
             queryset = queryset.filter(note__icontains = self.request.GET.get("note"))
