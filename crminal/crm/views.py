@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from viewsets import ModelViewSet
+from .models import CallLog, Stage
 
-# Create your views here.
+class CallLogViewSet(ModelViewSet):
+    model = CallLog
+
+class StageViewSet(ModelViewSet):
+    model = Stage
