@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 
-
 class Stage(models.Model):
     name = models.CharField(max_length = 200)
     order = models.IntegerField(help_text = 'The order this is displayed on the screen')
@@ -11,7 +10,6 @@ class Stage(models.Model):
 
     def __unicode__(self):
         return self.name
-
 
 class Company(models.Model):
     name = models.CharField(max_length = 200)
@@ -29,7 +27,6 @@ class Company(models.Model):
 
     class Meta:
         verbose_name_plural = 'companies'
-
 
 class Contact(models.Model):
     company = models.ForeignKey(Company, blank = True, null = True)
@@ -57,7 +54,6 @@ class Campaign(models.Model):
     def __unicode__(self):
         return self.name
 
-
 class Opportunity(models.Model):
     stage = models.ForeignKey(Stage)
     company = models.ForeignKey(Company, blank = True, null = True)
@@ -76,7 +72,6 @@ class Opportunity(models.Model):
     class Meta:
         verbose_name_plural = 'opportunities'
 
-
 class Reminder(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     date = models.DateField()
@@ -86,14 +81,12 @@ class Reminder(models.Model):
     def __unicode__(self):
         return self.opportunity + ": " + self.note
 
-
 class Report(models.Model):
     name = models.CharField(max_length = 200)
     link = models.URLField()
 
     def __unicode__(self):
         return self.name
-
 
 class CallLog(models.Model):
     opportunity = models.ForeignKey(Opportunity)
@@ -103,7 +96,6 @@ class CallLog(models.Model):
 
     def __unicode__(self):
         return self.opportunity + " on " + self.date.strftime("%Y-%m-%d") + " by " + self.user.get_full_name()
-
 
 class OpportunityStage(models.Model):
     opportunity = models.ForeignKey(Opportunity)
