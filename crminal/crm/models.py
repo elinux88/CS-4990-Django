@@ -42,7 +42,7 @@ class Contact(models.Model):
     email = models.EmailField(max_length = 200, blank = True, null = True)
 
     def get_full_name(self):
-        return self.first_name + " " + self.last_name
+        return str(self.first_name) + " " + str(self.last_name)
 
     def __unicode__(self):
         return self.get_full_name()
