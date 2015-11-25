@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if campaign %}Update{% else %}Add{% endif %} Campaign{%endblock%}
+
+{% block content %}
+
+<h1>{% if campaign %}Update{% else %}Add{% endif %} Campaign</h1>
+
+<form action="." method="post" id="campaign-form">
+  {% csrf_token %}
+  <table class="table">
+    {{ form }}
+  <tr><td>
+    <button type="submit" class="btn btn-primary">{% if campaign %}Update{% else %}Add{% endif %} Campaign</button>
+  </td></tr>
+  </table>
+</form>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if contact %}Update{% else %}Add{% endif %} Contact{%endblock%}
+
+{% block content %}
+
+<h1>{% if contact %}Update{% else %}Add{% endif %} Contact</h1>
+
+<form action="." method="post" id="contact-form">
+  {% csrf_token %}
+  <table class="table">
+    {{ form }}
+  <tr><td>
+    <button type="submit" class="btn btn-primary">{% if contact %}Update{% else %}Add{% endif %} Contact</button>
+  </td></tr>
+  </table>
+</form>
+
+{% endblock %}

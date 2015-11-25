@@ -5,5 +5,38 @@
 {% block content %}
 
 <h1>Stages</h1>
+<hr>
+<p>
+  <a href="{% url 'crm:stage_create' %}"><button class="btn btn-default">Create New Stage</button></a>
+</p>
+
+<table class="table">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Order</th>
+    <th>Description</th>
+    <th>Value</th>
+  </tr>
+</thead>
+<tbody>
+
+{% for stage in stage_list %}
+  <tr>
+    <td><a href="{% url 'crm:stage_detail' stage.id %}">{{ stage.name }}</a></td>
+    <td>{{ stage.order }}</td>
+    <td>{{ stage.description }}</td>
+    <td>{{ stage.value }}</td>
+  </tr>
+
+{% empty %}
+  <tr>
+    <td colspan="5">
+      No stages at this time.
+    </td>
+  </tr>
+
+{% endfor %}
+</tbody>
 
 {% endblock %}

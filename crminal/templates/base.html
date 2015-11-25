@@ -57,15 +57,13 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <!--<li class="active"><a href="/report">Reports</a></li>-->
-            <li>
-                {% if request.user.is_authenticated %}
-                    <a href="{% url 'auth_logout' %}">Log Out</a>
-                {% else %}
-                    <a href="{% url 'auth_login' %}">Log In</a>
-                {% endif %}
-            </li>
-            <li><a href="{% url 'registration_register' %}">Sign Up</a></li>
-            <li><a href="/admin/">Admin</a></li>
+            <li><a href="/call-logs/">Call Logs</a></li>
+            <li><a href="/stages/">Stages</a></li>
+            <li><a href="/companies/">Companies</a></li>
+            <li><a href="/contacts/">Contacts</a></li>
+            <li><a href="/reminders/">Reminders</a></li>
+            <li><a href="/opportunities/">Opportunities</a></li>
+            <li><a href="/campaigns/">Campaigns</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

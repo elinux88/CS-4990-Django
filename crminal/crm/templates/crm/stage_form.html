@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Stages{%endblock%}
+{% block title %}{% if stage %}Update{% else %}Add{% endif %} Stage{%endblock%}
 
 {% block content %}
 
-<h1>Stages</h1>
+<h1>{% if stage %}Update{% else %}Add{% endif %} Stage</h1>
+
+<form action="." method="post" id="stage-form">
+  {% csrf_token %}
+  <table class="table">
+    {{ form }}
+  <tr><td>
+    <button type="submit" class="btn btn-primary">{% if stage %}Update{% else %}Add{% endif %} Stage</button>
+  </td></tr>
+  </table>
+</form>
 
 {% endblock %}

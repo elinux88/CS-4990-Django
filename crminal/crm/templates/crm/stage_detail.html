@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Stages{%endblock%}
+{% block title %}Stage: {{ stage.name }}{% endblock %}
 
 {% block content %}
 
-<h1>Stages</h1>
+<h2>{{ stage.name }} Stage</h2>
+
+<p>{{ stage.description }}</p>
+<hr>
+<p>
+  <a href="{% url 'crm:stage_update' stage.id %}"><button class="btn btn-default">Edit this Stage</button></a>
+</p>
 
 {% endblock %}

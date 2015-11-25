@@ -1,84 +1,32 @@
 from django.core.urlresolvers import reverse
-from django.views.generic import ListView, DetailView, TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from viewsets import ModelViewSet
 from .models import CallLog, Stage, Company, Contact, Reminder, Opportunity, Campaign
 
-class MainView(TemplateView):
-    template_name = 'base.html'
-
-# CallLog
-
-class CallLogListView(ListView):
+class CallLogViewSet(ModelViewSet):
     model = CallLog
-    paginate_by = 10
-
-    def get_queryset(self):
-        return CallLog.objects.order_by('-date')
-
-class CallLogDetailView(DetailView):
-    model = CallLog
-
-class CallLogCreateView(CreateView):
-    model = CallLog
+    exclude = ['user']
     fields = ['opportunity', 'note']
 
+class StageViewSet(ModelViewSet):
+    model = Stage
+
     def get_success_url(self):
-        return reverse('crm:call-log_index')
+        return reverse('crm:stage_index')
 
-    def form_valid(self, form):
-        u = form.save(commit=False)
-        u.user = User.objects.filter(user=self.request.user)[0]
-        u.save()
-        return super(CallLogCreateView, self).form_valid(form)
-
-class CallLogDeleteView(DeleteView):
-    model = CallLog
-
-# Stage
-
-class StageListView(ListView):
-    model = Stage
-    paginate_by = 10
-
-    def get_queryset(self):
-        return Stage.objects.order_by('order')
-
-class StageDetailView(DetailView):
-    model = Stage
-
-class StageCreateView(CreateView):
-    model = Stage
-    fields = ['name', 'order', 'description', 'value']
-
-class StageUpdateView(UpdateView):
-    model = Stage
-    fields = ['name', 'order', 'description', 'value']
-
-class StageDeleteView(DeleteView):
-    model = Stage
-
-# Company
-
-class CompanyDetailView(DetailView):
+class CompanyViewSet(ModelViewSet):
     model = Company
 
-# Contact
-
-class ContactDetailView(DetailView):
+class ContactViewSet(ModelViewSet):
     model = Contact
 
-# Reminder
-
-class ReminderDetailView(DetailView):
+class ReminderViewSet(ModelViewSet):
     model = Reminder
 
-# Opportunity
-
-class OpportunityDetailView(DetailView):
+class OpportunityViewSet(ModelViewSet):
     model = Opportunity
+    exclude = ['user']
+    fields = ['stage', 'company', 'contact', 'value', 'source']
 
-# Campaign
-
-class CampaignDetailView(DetailView):
+class CampaignViewSet(ModelViewSet):
     model = Campaign
 
