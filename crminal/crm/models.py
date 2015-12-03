@@ -72,22 +72,6 @@ class Opportunity(models.Model):
     class Meta:
         verbose_name_plural = 'opportunities'
 
-class Reminder(models.Model):
-    opportunity = models.ForeignKey(Opportunity)
-    date = models.DateField()
-    note = models.CharField(max_length = 200)
-    completed = models.BooleanField(default = False)
-
-    def __unicode__(self):
-        return self.opportunity + ": " + self.note
-
-class Report(models.Model):
-    name = models.CharField(max_length = 200)
-    link = models.URLField()
-
-    def __unicode__(self):
-        return self.name
-
 class CallLog(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     date = models.DateTimeField(auto_now_add = True)
@@ -105,4 +89,20 @@ class OpportunityStage(models.Model):
 
     def __unicode__(self):
         return self.opportunity + " moved to " + self.stage
+
+class Reminder(models.Model):
+    opportunity = models.ForeignKey(Opportunity)
+    date = models.DateField()
+    note = models.CharField(max_length = 200)
+    completed = models.BooleanField(default = False)
+
+    def __unicode__(self):
+        return self.opportunity + ": " + self.note
+
+class Report(models.Model):
+    name = models.CharField(max_length = 200)
+    link = models.URLField()
+
+    def __unicode__(self):
+        return self.name
 

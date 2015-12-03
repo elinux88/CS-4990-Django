@@ -4,12 +4,16 @@
 
 {% block content %}
 
-<h2>{{ stage.name }} Stage</h2>
+<h1>Stage {{ stage.value }}</h1>
 
-<p>{{ stage.description }}</p>
-<hr>
+<div class="well">
+  <h2>{{ stage.name }}</h2>
+  <p>{{ stage.description }}</p>
+</div>
+
 <p>
   <a href="{% url 'crm:stage_update' stage.id %}"><button class="btn btn-default">Edit this Stage</button></a>
+  <a href="{% url 'crm:stage_delete' stage.id %}"><button class="btn btn-default">Delete this Stage</button></a>
 </p>
 
 {% endblock %}
