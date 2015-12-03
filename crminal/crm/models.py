@@ -81,6 +81,9 @@ class CallLog(models.Model):
     def __unicode__(self):
         return self.opportunity + " on " + self.date.strftime("%Y-%m-%d") + " by " + self.user.get_full_name()
 
+    class Meta:
+        ordering = ['-date']
+
 class OpportunityStage(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     stage = models.ForeignKey(Stage)
