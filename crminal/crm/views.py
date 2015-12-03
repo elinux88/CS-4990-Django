@@ -39,13 +39,6 @@ class OpportunityViewSet(ModelViewSet):
 class ReminderViewSet(ModelViewSet):
     model = Reminder
 
-class StageUpdateView(UpdateView):
-    success_url = 'crm:stages'
-
 class StageViewSet(ModelViewSet):
     model = Stage
-
-    def __init__(self, *args, **kwargs):
-        self.views['update_view']['view'] = StageUpdateView
-        super(StageViewSet, self).__init__(*args, **kwargs)
 

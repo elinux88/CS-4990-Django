@@ -1,5 +1,6 @@
-from django.db import models
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.db import models
 import datetime
 
 class Stage(models.Model):
@@ -10,6 +11,9 @@ class Stage(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('crm:stage_detail', kwargs={'pk': self.pk})
 
 class Company(models.Model):
     name = models.CharField(max_length = 200)
@@ -27,6 +31,9 @@ class Company(models.Model):
 
     class Meta:
         verbose_name_plural = 'companies'
+
+    def get_absolute_url(self):
+        return reverse('crm:company_detail', kwargs={'pk': self.pk})
 
 class Contact(models.Model):
     company = models.ForeignKey(Company, blank = True, null = True)
@@ -46,6 +53,9 @@ class Contact(models.Model):
 
     def __unicode__(self):
         return self.get_full_name()
+
+    def get_absolute_url(self):
+        return reverse('crm:contact_detail', kwargs={'pk': self.pk})
 
 class Campaign(models.Model):
     name = models.CharField(max_length = 200)
@@ -72,6 +82,9 @@ class Opportunity(models.Model):
     class Meta:
         verbose_name_plural = 'opportunities'
 
+    def get_absolute_url(self):
+        return reverse('crm:opportunity_detail', kwargs={'pk': self.pk})
+
 class CallLog(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     date = models.DateTimeField(auto_now_add = True)
@@ -84,6 +97,9 @@ class CallLog(models.Model):
     class Meta:
         ordering = ['-date']
 
+    def get_absolute_url(self):
+        return reverse('crm:call-log_detail', kwargs={'pk': self.pk})
+
 class OpportunityStage(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     stage = models.ForeignKey(Stage)
@@ -93,6 +109,9 @@ class OpportunityStage(models.Model):
     def __unicode__(self):
         return self.opportunity + " moved to " + self.stage
 
+    def get_absolute_url(self):
+        return reverse('crm:opportunity-stage_detail', kwargs={'pk': self.pk})
+
 class Reminder(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     date = models.DateField()
@@ -101,6 +120,9 @@ class Reminder(models.Model):
 
     def __unicode__(self):
         return self.opportunity + ": " + self.note
+
+    def get_absolute_url(self):
+        return reverse('crm:reminder_detail', kwargs={'pk': self.pk})
 
 class Report(models.Model):
     name = models.CharField(max_length = 200)
