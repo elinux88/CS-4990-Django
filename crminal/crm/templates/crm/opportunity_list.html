@@ -5,5 +5,42 @@
 {% block content %}
 
 <h1>Opportunities</h1>
+<hr>
+<p>
+  <a href="{% url 'crm:opportunity_create' %}"><button class="btn btn-default">Create New Opportunity</button></a>
+</p>
+
+<table class="table">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Order</th>
+    <th>Description</th>
+    <th>Value</th>
+  </tr>
+</thead>
+<tbody>
+
+{% for opportunity in opportunity_list %}
+  <tr>
+    <td><a href="{% url 'crm:opportunity_detail' opportunity.id %}">{{ opportunity.name }}</a></td>
+    <td>{{ opportunity.stage }}</td>
+    <td>{{ opportunity.company }}</td>
+    <td>{{ opportunity.contact }}</td>
+    <td>{{ opportunity.value }}</td>
+    <td>{{ opportunity.source }}</td>
+    <td>{{ opportunity.user }}</td>
+    <td>{{ opportunity.create_date }}</td>
+  </tr>
+
+{% empty %}
+  <tr>
+    <td colspan="5">
+      No opportunities at this time.
+    </td>
+  </tr>
+
+{% endfor %}
+</tbody>
 
 {% endblock %}

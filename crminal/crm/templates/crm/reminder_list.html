@@ -5,5 +5,39 @@
 {% block content %}
 
 <h1>Reminders</h1>
+<hr>
+<p>
+  <a href="{% url 'crm:reminder_create' %}"><button class="btn btn-default">Create New Reminder</button></a>
+</p>
+
+<table class="table">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Order</th>
+    <th>Description</th>
+    <th>Value</th>
+  </tr>
+</thead>
+<tbody>
+
+{% for reminder in reminder_list %}
+  <tr>
+    <td><a href="{% url 'crm:reminder_detail' reminder.id %}">{{ reminder.name }}</a></td>
+    <td>{{ reminder.opportunity }}</td>
+    <td>{{ reminder.date }}</td>
+    <td>{{ reminder.note }}</td>
+    <td>{{ reminder.completed }}</td>
+  </tr>
+
+{% empty %}
+  <tr>
+    <td colspan="5">
+      No reminders at this time.
+    </td>
+  </tr>
+
+{% endfor %}
+</tbody>
 
 {% endblock %}

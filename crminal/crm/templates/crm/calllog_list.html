@@ -5,5 +5,39 @@
 {% block content %}
 
 <h1>Call Logs</h1>
+<hr>
+<p>
+  <a href="{% url 'crm:call-log_create' %}"><button class="btn btn-default">Create New Call Log</button></a>
+</p>
+
+<table class="table">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Order</th>
+    <th>Description</th>
+    <th>Value</th>
+  </tr>
+</thead>
+<tbody>
+
+{% for call_log in call_log_list %}
+  <tr>
+    <td><a href="{% url 'crm:call_log_detail' call_log.id %}">{{ call_log.name }}</a></td>
+    <td>{{ call_log.opportunity }}</td>
+    <td>{{ call_log.date }}</td>
+    <td>{{ call_log.note }}</td>
+    <td>{{ call_log.user }}</td>
+  </tr>
+
+{% empty %}
+  <tr>
+    <td colspan="5">
+      No call logs at this time.
+    </td>
+  </tr>
+
+{% endfor %}
+</tbody>
 
 {% endblock %}
