@@ -9,8 +9,11 @@
   <p>
     <form method="POST">
       {% csrf_token %}
-        <button type="submit" class="btn btn-default">Yes</button></a>
-        <a href="{% url 'crm:stage_detail' stage.id %}"><button class="btn btn-default">No</button></a>
+        <button type="submit" class="btn btn-default">Yes</button>
+        <button type="button" class="btn btn-default"
+          onclick="document.location='{{ stage.get_absolute_url }}';">
+          No
+        </button>
     </form>
   </p>
 </div>
