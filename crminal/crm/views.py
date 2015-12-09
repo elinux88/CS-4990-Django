@@ -42,3 +42,18 @@ class ReminderViewSet(ModelViewSet):
 class StageViewSet(ModelViewSet):
     model = Stage
 
+class SearchResultsView(TemplateView):
+    template_name = 'crm/search_results.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchResultsView, self).get_context_data(**kwargs)
+
+        if not self.request.GET.get('q', None):
+            return context
+
+        term = self.request.GET['q']
+        context['searchterm'] = term
+        context['opportunity_list'] = Opportunity.objects.filter(name_icontains = term)
+
+        return context
+

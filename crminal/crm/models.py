@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.text import slugify
 import datetime
 
 class Stage(models.Model):
@@ -11,6 +12,9 @@ class Stage(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        ordering = ['order']
 
     def get_absolute_url(self):
         return reverse('crm:stage_detail', kwargs={'pk': self.pk})
@@ -65,8 +69,9 @@ class Campaign(models.Model):
         return self.name
 
 class Opportunity(models.Model):
+    name = models.CharField(max_length = 200)
+    slug = models.SlugField()
     stage = models.ForeignKey(Stage)
-    company = models.ForeignKey(Company, blank = True, null = True)
     contact = models.ForeignKey(Contact)
     value = models.FloatField(help_text = 'How much this opportunity is worth to the organization')
     source = models.ForeignKey(Campaign, help_text = 'How did this contact find out about us?')
@@ -74,13 +79,14 @@ class Opportunity(models.Model):
     create_date = models.DateTimeField(auto_now_add = True)
 
     def __unicode__(self):
-        if self.company:
-            return self.company
-        else:
-            return self.contact
+        return self.name
 
     class Meta:
         verbose_name_plural = 'opportunities'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super(Opportunity, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('crm:opportunity_detail', kwargs={'pk': self.pk})
@@ -95,7 +101,7 @@ class CallLog(models.Model):
         return self.opportunity + " on " + self.date.strftime("%Y-%m-%d") + " by " + self.user.get_full_name()
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['-date', 'user']
 
     def get_absolute_url(self):
         return reverse('crm:call-log_detail', kwargs={'pk': self.pk})
