@@ -43,19 +43,14 @@ urlpatterns = [
     url(r'^call-log/(?P<pk>\d+)/update/$', views.CallLogUpdateView.as_view(), name='call-log_update'),
     url(r'^call-log/(?P<pk>\d+)/delete/$', views.CallLogDeleteView.as_view(), name='call-log_delete'),
 
-    url(r'^opportunity-stage/$', views.Opportunityopportunity-stageView.as_view(), name='opportunity-stage_index'),
-    url(r'^opportunity-stage/(?P<pk>\d+)/$', views.Opportunityopportunity-stageDetailView.as_view(), name='opportunity-stage_detail'),
-    url(r'^opportunity-stage/create/$', views.Opportunityopportunity-stageCreateView.as_view(), name='opportunity-stage_create'),
-    url(r'^opportunity-stage/(?P<pk>\d+)/update/$', views.Opportunityopportunity-stageUpdateView.as_view(), name='opportunity-stage_update'),
-    url(r'^opportunity-stage/(?P<pk>\d+)/delete/$', views.Opportunityopportunity-stageDeleteView.as_view(), name='opportunity-stage_delete'),
-
     url(r'^reminder/$', views.ReminderView.as_view(), name='reminder_index'),
     url(r'^reminder/(?P<pk>\d+)/$', views.ReminderDetailView.as_view(), name='reminder_detail'),
     url(r'^reminder/create/$', views.ReminderCreateView.as_view(), name='reminder_create'),
     url(r'^reminder/(?P<pk>\d+)/update/$', views.ReminderUpdateView.as_view(), name='reminder_update'),
     url(r'^reminder/(?P<pk>\d+)/delete/$', views.ReminderDeleteView.as_view(), name='reminder_delete'),
 
-    url(r'^reports/$', TemplateView.as_view(template_name = 'report_list.html')),
+    url(r'^report/$', TemplateView.as_view(template_name = 'report_list.html')),
+    url(r'^search/$', TemplateView.as_view(template_name = 'search_results.html')),
 ]
 #urlpatterns = patterns('',
 #    url(r'^$', DashboardView.as_view(), name="dashboard"),

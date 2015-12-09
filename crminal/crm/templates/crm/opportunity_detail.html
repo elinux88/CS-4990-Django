@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %}Opportunity{%endblock%}
+{% block title %}Opportunity: {{ opportunity.name }}{% endblock %}
 
 {% block content %}
 
-<div class="jumbotron">
-  <h1>Opportunity</h1>
+<h1>Opportunity</h1>
+
+<div class="well">
+  <h2>{{ opportunity.name }}</h2>
+  <p>{{ opportunity.stage }}</p>
+  <p>{{ opportunity.contact }}</p>
+  <p>Value: {{ opportunity.value }}</p>
+  <p>Source: {{ opportunity.source }}</p>
+  <p>User: {{ opportunity.user }}</p>
+  <p>{{ opportunity.create_date }}</p>
 </div>
+
+<p>
+  <a href="{% url 'crm:opportunity_update' opportunity.id %}"><button class="btn btn-default">Edit this Opportunity</button></a>
+  <a href="{% url 'crm:opportunity_delete' opportunity.id %}"><button class="btn btn-default">Delete this Opportunity</button></a>
+</p>
 
 {% endblock %}

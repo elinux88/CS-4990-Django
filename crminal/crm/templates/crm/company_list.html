@@ -14,9 +14,8 @@
 <thead>
   <tr>
     <th>Name</th>
-    <th>Order</th>
-    <th>Description</th>
-    <th>Value</th>
+    <th>City</th>
+    <th>Phone</th>
   </tr>
 </thead>
 <tbody>
@@ -24,7 +23,7 @@
 {% for company in company_list %}
   <tr>
     <td><a href="{% url 'crm:company_detail' company.id %}">{{ company.name }}</a></td>
-    <td>{{ company.name }}</td>
+    <td>{{ company.city }}</td>
     <td>{{ company.phone }}</td>
   </tr>
 

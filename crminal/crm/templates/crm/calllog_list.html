@@ -13,21 +13,18 @@
 <table class="table">
 <thead>
   <tr>
-    <th>Name</th>
-    <th>Order</th>
-    <th>Description</th>
-    <th>Value</th>
+    <th>Opportunity</th>
+    <th>Date</th>
+    <th>Note</th>
   </tr>
 </thead>
 <tbody>
 
-{% for call_log in call_log_list %}
+{% for calllog in calllog_list %}
   <tr>
-    <td><a href="{% url 'crm:call_log_detail' call_log.id %}">{{ call_log.name }}</a></td>
-    <td>{{ call_log.opportunity }}</td>
-    <td>{{ call_log.date }}</td>
-    <td>{{ call_log.note }}</td>
-    <td>{{ call_log.user }}</td>
+    <td><a href="{% url 'crm:call-log_detail' calllog.id %}">{{ calllog.opportunity }}</a></td>
+    <td>{{ calllog.date }}</td>
+    <td>{{ calllog.note }}</td>
   </tr>
 
 {% empty %}

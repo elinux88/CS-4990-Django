@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db.models import Count
-from django.views.generic import TemplateView, ListView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import CallLog, Campaign, Company, Contact, Opportunity, Reminder, Stage
 
@@ -27,9 +27,11 @@ class StageDetailView(DetailView):
 
 class StageCreateView(CreateView):
     model = Stage
+    fields = ['name', 'order', 'description', 'value']
 
 class StageUpdateView(UpdateView):
     model = Stage
+    fields = ['name', 'order', 'description', 'value']
 
 class StageDeleteView(DeleteView):
     model = Stage
@@ -44,9 +46,11 @@ class CompanyDetailView(DetailView):
 
 class CompanyCreateView(CreateView):
     model = Company
+    fields = ['name', 'website', 'address1', 'address2', 'city', 'state', 'zipcode', 'country', 'phone']
 
 class CompanyUpdateView(UpdateView):
     model = Company
+    fields = ['name', 'website', 'address1', 'address2', 'city', 'state', 'zipcode', 'country', 'phone']
 
 class CompanyDeleteView(DeleteView):
     model = Company
@@ -61,9 +65,11 @@ class ContactDetailView(DetailView):
 
 class ContactCreateView(CreateView):
     model = Contact
+    fields = ['company', 'first_name', 'last_name', 'address1', 'address2', 'city', 'state', 'zipcode', 'country', 'phone', 'email']
 
 class ContactUpdateView(UpdateView):
     model = Contact
+    fields = ['company', 'first_name', 'last_name', 'address1', 'address2', 'city', 'state', 'zipcode', 'country', 'phone', 'email']
 
 class ContactDeleteView(DeleteView):
     model = Contact
@@ -78,9 +84,11 @@ class CampaignDetailView(DetailView):
 
 class CampaignCreateView(CreateView):
     model = Campaign
+    fields = ['name', 'description']
 
 class CampaignUpdateView(UpdateView):
     model = Campaign
+    fields = ['name', 'description']
 
 class CampaignDeleteView(DeleteView):
     model = Campaign
@@ -95,9 +103,11 @@ class OpportunityDetailView(DetailView):
 
 class OpportunityCreateView(CreateView):
     model = Opportunity
+    fields = ['name', 'stage', 'contact', 'value', 'source']
 
 class OpportunityUpdateView(UpdateView):
     model = Opportunity
+    fields = ['name', 'stage', 'contact', 'value', 'source']
 
 class OpportunityDeleteView(DeleteView):
     model = Opportunity
@@ -112,29 +122,14 @@ class CallLogDetailView(DetailView):
 
 class CallLogCreateView(CreateView):
     model = CallLog
+    fields = ['opportunity', 'note']
 
 class CallLogUpdateView(UpdateView):
     model = CallLog
+    fields = ['opportunity', 'note']
 
 class CallLogDeleteView(DeleteView):
     model = CallLog
-
-# OpportunityStage
-
-class OpportunityStageView(ListView):
-    model = OpportunityStage
-
-class OpportunityStageDetailView(DetailView):
-    model = OpportunityStage
-
-class OpportunityStageCreateView(CreateView):
-    model = OpportunityStage
-
-class OpportunityStageUpdateView(UpdateView):
-    model = OpportunityStage
-
-class OpportunityStageDeleteView(DeleteView):
-    model = OpportunityStage
 
 # Reminder
 
@@ -146,9 +141,11 @@ class ReminderDetailView(DetailView):
 
 class ReminderCreateView(CreateView):
     model = Reminder
+    fields = ['opportunity', 'date', 'note', 'completed']
 
 class ReminderUpdateView(UpdateView):
     model = Reminder
+    fields = ['opportunity', 'date', 'note', 'completed']
 
 class ReminderDeleteView(DeleteView):
     model = Reminder

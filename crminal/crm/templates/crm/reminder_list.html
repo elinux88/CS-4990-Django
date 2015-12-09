@@ -13,18 +13,17 @@
 <table class="table">
 <thead>
   <tr>
-    <th>Name</th>
-    <th>Order</th>
-    <th>Description</th>
-    <th>Value</th>
+    <th>Opportunity</th>
+    <th>Date</th>
+    <th>Note</th>
+    <th>Completed</th>
   </tr>
 </thead>
 <tbody>
 
 {% for reminder in reminder_list %}
   <tr>
-    <td><a href="{% url 'crm:reminder_detail' reminder.id %}">{{ reminder.name }}</a></td>
-    <td>{{ reminder.opportunity }}</td>
+    <td><a href="{% url 'crm:reminder_detail' reminder.id %}">{{ reminder.opportunity }}</a></td>
     <td>{{ reminder.date }}</td>
     <td>{{ reminder.note }}</td>
     <td>{{ reminder.completed }}</td>

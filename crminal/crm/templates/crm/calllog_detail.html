@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %}Call Log{%endblock%}
+{% block title %}Call Log{% endblock %}
 
 {% block content %}
 
 <h1>Call Log</h1>
+
+<div class="well">
+  <h2>{{ calllog.opportunity }}</h2>
+  <p>{{ calllog.date }}</p>
+  <p>{{ calllog.note }}</p>
+  <p>User: {{ calllog.user }}</p>
+</div>
+
+<p>
+  <a href="{% url 'crm:call-log_update' calllog.id %}"><button class="btn btn-default">Edit this Call Log</button></a>
+  <a href="{% url 'crm:call-log_delete' calllog.id %}"><button class="btn btn-default">Delete this Call Log</button></a>
+</p>
 
 {% endblock %}

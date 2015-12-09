@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %}Stages{%endblock%}
+{% block title %}Reminder: {{ reminder.name }}{% endblock %}
 
 {% block content %}
 
-<h1>Stages</h1>
+<h1>Reminder {{ reminder.value }}</h1>
+
+<div class="well">
+  <h2>{{ reminder.opportunity }}</h2>
+  <p>{{ reminder.date }}</p>
+  <p>{{ reminder.note }}</p>
+  <p>Completed: {{ reminder.completed }}</p>
+</div>
+
+<p>
+  <a href="{% url 'crm:reminder_update' reminder.id %}"><button class="btn btn-default">Edit this Reminder</button></a>
+  <a href="{% url 'crm:reminder_delete' reminder.id %}"><button class="btn btn-default">Delete this Reminder</button></a>
+</p>
 
 {% endblock %}

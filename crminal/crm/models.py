@@ -75,7 +75,7 @@ class Opportunity(models.Model):
     contact = models.ForeignKey(Contact)
     value = models.FloatField(help_text = 'How much this opportunity is worth to the organization')
     source = models.ForeignKey(Campaign, help_text = 'How did this contact find out about us?')
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, blank = True, null = True)
     create_date = models.DateTimeField(auto_now_add = True)
 
     def __unicode__(self):
@@ -95,7 +95,7 @@ class CallLog(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     date = models.DateTimeField(auto_now_add = True)
     note = models.TextField()
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, blank = True, null = True)
 
     def __unicode__(self):
         return self.opportunity + " on " + self.date.strftime("%Y-%m-%d") + " by " + self.user.get_full_name()
@@ -110,7 +110,7 @@ class OpportunityStage(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     stage = models.ForeignKey(Stage)
     timestamp = models.DateTimeField(auto_now_add = True)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, blank = True, null = True)
 
     def __unicode__(self):
         return self.opportunity + " moved to " + self.stage

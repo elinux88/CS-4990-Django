@@ -8,7 +8,11 @@
 
 <div class="well">
   <h2>{{ company.name }}</h2>
-  <p>{{ company.description }}</p>
+  <p><a href="{{ company.website }}">{{ company.website }}</a></p>
+  <p>{{ company.address1 }}</p>
+  <p>{{ company.address2 }}</p>
+  <p>{{ company.city }}, {{ company.state }}, {{ company.zipcode }}, {{ company.country }}</p>
+  <p>{{ company.phone }}</p>
 </div>
 
 <p>
