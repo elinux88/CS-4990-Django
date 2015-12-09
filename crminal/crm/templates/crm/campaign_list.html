@@ -14,9 +14,7 @@
 <thead>
   <tr>
     <th>Name</th>
-    <th>Order</th>
     <th>Description</th>
-    <th>Value</th>
   </tr>
 </thead>
 <tbody>
@@ -24,7 +22,6 @@
 {% for campaign in campaign_list %}
   <tr>
     <td><a href="{% url 'crm:campaign_detail' campaign.id %}">{{ campaign.name }}</a></td>
-    <td>{{ campaign.name }}</td>
     <td>{{ campaign.description }}</td>
   </tr>
 

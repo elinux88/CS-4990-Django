@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Stages{%endblock%}
+{% block title %}Company: {{ company.name }}{% endblock %}
 
 {% block content %}
 
-<h1>Stages</h1>
+<h1>Company</h1>
+
+<div class="well">
+  <h2>{{ company.name }}</h2>
+  <p>{{ company.description }}</p>
+</div>
+
+<p>
+  <a href="{% url 'crm:company_update' company.id %}"><button class="btn btn-default">Edit this Company</button></a>
+  <a href="{% url 'crm:company_delete' company.id %}"><button class="btn btn-default">Delete this Company</button></a>
+</p>
 
 {% endblock %}

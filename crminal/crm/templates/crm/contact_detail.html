@@ -4,11 +4,12 @@
 
 {% block content %}
 
-<h1>Contact {{ contact.value }}</h1>
+<h1>Contact</h1>
 
 <div class="well">
-  <h2>{{ contact.name }}</h2>
-  <p>{{ contact.description }}</p>
+  <h2>{{ contact.get_full_name }}</h2>
+  <p>{{ contact.company }}</p>
+  <p>{{ contact.phone }}</p>
 </div>
 
 <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d12727.790476754675!2d-113.56689800000001!3d37.10636435!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1449102818932" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>

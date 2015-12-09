@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Stages{%endblock%}
+{% block title %}Campaign: {{ campaign.name }}{%endblock%}
 
 {% block content %}
 
-<h1>Stages</h1>
+<h1>Campaign</h1>
+
+<div class="well">
+  <h2>{{ campaign.name }}</h2>
+  <p>{{ campaign.description }}</p>
+</div>
+
+<p>
+  <a href="{% url 'crm:campaign_update' campaign.id %}"><button class="btn btn-default">Edit this Campaign</button></a>
+  <a href="{% url 'crm:campaign_delete' campaign.id %}"><button class="btn btn-default">Delete this Campaign</button></a>
+</p>
 
 {% endblock %}

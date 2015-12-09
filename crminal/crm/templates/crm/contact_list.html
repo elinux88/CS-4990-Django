@@ -14,19 +14,17 @@
 <thead>
   <tr>
     <th>Name</th>
-    <th>Order</th>
-    <th>Description</th>
-    <th>Value</th>
+    <th>Company</th>
+    <th>Phone</th>
   </tr>
 </thead>
 <tbody>
 
 {% for contact in contact_list %}
   <tr>
-    <td><a href="{% url 'crm:contact_detail' contact.id %}">{{ contact.name }}</a></td>
+    <td><a href="{% url 'crm:contact_detail' contact.id %}">{{ contact.get_full_name }}</a></td>
     <td>{{ contact.company }}</td>
-    <td>{{ contact.first_name }}</td>
-    <td>{{ contact.last_name }}</td>
+    <td>{{ contact.phone }}</td>
   </tr>
 
 {% empty %}
