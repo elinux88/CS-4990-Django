@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Count
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import CallLog, Campaign, Company, Contact, Opportunity, Reminder, Stage
+from .models import Stage, Company, Contact, Campaign, Opportunity, CallLog, OpportunityStage, Reminder, Report
 
 class DashboardView(TemplateView):
     template_name = 'crm/dashboard.html'
@@ -35,6 +35,7 @@ class StageUpdateView(UpdateView):
 
 class StageDeleteView(DeleteView):
     model = Stage
+    success_url = reverse_lazy('crm:stagedeletesuccess')
 
 # Company
 
@@ -54,6 +55,7 @@ class CompanyUpdateView(UpdateView):
 
 class CompanyDeleteView(DeleteView):
     model = Company
+    success_url = reverse_lazy('crm:companydeletesuccess')
 
 # Contact
 
@@ -73,6 +75,7 @@ class ContactUpdateView(UpdateView):
 
 class ContactDeleteView(DeleteView):
     model = Contact
+    success_url = reverse_lazy('crm:contactdeletesuccess')
 
 # Campaign
 
@@ -92,6 +95,7 @@ class CampaignUpdateView(UpdateView):
 
 class CampaignDeleteView(DeleteView):
     model = Campaign
+    success_url = reverse_lazy('crm:campaigndeletesuccess')
 
 # Opportunity
 
@@ -109,8 +113,20 @@ class OpportunityUpdateView(UpdateView):
     model = Opportunity
     fields = ['name', 'stage', 'contact', 'value', 'source']
 
+    def form_valid(self, form):
+        opportunity = form.save(commit=False)
+        if opportunity.stage.value > self.get_object().stage.value:
+            opp_stage = OpportunityStage()
+            opp_stage.opportunity = Opportunity.objects.all().filter(id = self.get_object().pk)[0]
+            opp_stage.stage = form.cleaned_data['stage']
+            #opp_stage.user = self.request.user
+            opp_stage.save()
+        opportunity.save()
+        return super(OpportunityUpdateView, self).form_valid(form)
+
 class OpportunityDeleteView(DeleteView):
     model = Opportunity
+    success_url = reverse_lazy('crm:opportunitydeletesuccess')
 
 # CallLog
 
@@ -130,6 +146,7 @@ class CallLogUpdateView(UpdateView):
 
 class CallLogDeleteView(DeleteView):
     model = CallLog
+    success_url = reverse_lazy('crm:calllogdeletesuccess')
 
 # Reminder
 
@@ -149,6 +166,27 @@ class ReminderUpdateView(UpdateView):
 
 class ReminderDeleteView(DeleteView):
     model = Reminder
+    success_url = reverse_lazy('crm:reminderdeletesuccess')
+
+# Report
+
+class ReportView(ListView):
+    model = Report
+
+class ReportDetailView(DetailView):
+    model = Report
+
+class ReportCreateView(CreateView):
+    model = Report
+    fields = ['name', 'link']
+
+class ReportUpdateView(UpdateView):
+    model = Report
+    fields = ['name', 'link']
+
+class ReportDeleteView(DeleteView):
+    model = Report
+    success_url = reverse_lazy('crm:reportdeletesuccess')
 
 
 
@@ -169,29 +207,4 @@ class SearchResultsView(TemplateView):
         context['calllog_list'] = CallLog.objects.filter(note__icontains = term)
 
         return context
-
-#class CallLogViewSet(ModelViewSet):
-#    model = CallLog
-#    exclude = ['user']
-#    fields = ['opportunity', 'note']
-
-#class CampaignViewSet(ModelViewSet):
-#    model = Campaign
-
-#class CompanyViewSet(ModelViewSet):
-#    model = Company
-
-#class ContactViewSet(ModelViewSet):
-#    model = Contact
-
-#class OpportunityViewSet(ModelViewSet):
-#    model = Opportunity
-#    exclude = ['user']
-#    fields = ['stage', 'company', 'contact', 'value', 'source']
-
-#class ReminderViewSet(ModelViewSet):
-#    model = Reminder
-
-#class StageViewSet(ModelViewSet):
-#    model = Stage
 

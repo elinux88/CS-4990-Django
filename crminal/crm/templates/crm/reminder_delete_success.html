@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Reminder Deleted{% endblock %}
+
+{% block content %}
+<h1>reminder deleted</h1>
+
+<p>That reminder was successfully deleted. <a href="{% url 'crm:reminder_index' %}">Go back to the list of reminders.</a></p>
+{% endblock %}

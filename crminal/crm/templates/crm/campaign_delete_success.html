@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Campaign Deleted{% endblock %}
+
+{% block content %}
+<h1>campaign deleted</h1>
+
+<p>That campaign was successfully deleted. <a href="{% url 'crm:campaign_index' %}">Go back to the list of campaigns.</a></p>
+{% endblock %}

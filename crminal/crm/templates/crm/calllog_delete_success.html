@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Call Log Deleted{% endblock %}
+
+{% block content %}
+<h1>Call Log deleted</h1>
+
+<p>That call log was successfully deleted. <a href="{% url 'crm:calllog_index' %}">Go back to the list of call logs.</a></p>
+{% endblock %}

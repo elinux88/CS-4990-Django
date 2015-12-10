@@ -68,6 +68,9 @@ class Campaign(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('crm:campaign_detail', kwargs={'pk': self.pk})
+
 class Opportunity(models.Model):
     name = models.CharField(max_length = 200)
     slug = models.SlugField()
@@ -104,7 +107,7 @@ class CallLog(models.Model):
         ordering = ['-date', 'user']
 
     def get_absolute_url(self):
-        return reverse('crm:call-log_detail', kwargs={'pk': self.pk})
+        return reverse('crm:calllog_detail', kwargs={'pk': self.pk})
 
 class OpportunityStage(models.Model):
     opportunity = models.ForeignKey(Opportunity)
@@ -136,4 +139,7 @@ class Report(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('crm:report_detail', kwargs={'pk': self.pk})
 

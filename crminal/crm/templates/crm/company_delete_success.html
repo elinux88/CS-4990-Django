@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Company Deleted{% endblock %}
+
+{% block content %}
+<h1>company deleted</h1>
+
+<p>That company was successfully deleted. <a href="{% url 'crm:company_index' %}">Go back to the list of companys.</a></p>
+{% endblock %}

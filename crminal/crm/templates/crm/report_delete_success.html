@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Report Deleted{% endblock %}
+
+{% block content %}
+<h1>report deleted</h1>
+
+<p>That report was successfully deleted. <a href="{% url 'crm:report_index' %}">Go back to the list of reports.</a></p>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Call Log?{% endblock %}
+
+{% block content %}
+
+<div class="well">
+  <p>Are you sure you want to delete this call log?</p>
+  <p>
+    <form method="POST">
+      {% csrf_token %}
+        <button type="submit" class="btn btn-default">Yes</button>
+        <button type="button" class="btn btn-default"
+          onclick="document.location='{{ calllog.get_absolute_url }}';">
+          No
+        </button>
+    </form>
+  </p>
+</div>
+
+{% endblock %}

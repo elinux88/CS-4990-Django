@@ -7,7 +7,7 @@
 <h1>Call Logs</h1>
 <hr>
 <p>
-  <a href="{% url 'crm:call-log_create' %}"><button class="btn btn-default">Create New Call Log</button></a>
+  <a href="{% url 'crm:calllog_create' %}"><button class="btn btn-default">Create New Call Log</button></a>
 </p>
 
 <table class="table">
@@ -22,7 +22,7 @@
 
 {% for calllog in calllog_list %}
   <tr>
-    <td><a href="{% url 'crm:call-log_detail' calllog.id %}">{{ calllog.opportunity }}</a></td>
+    <td><a href="{% url 'crm:calllog_detail' calllog.id %}">{{ calllog.opportunity }}</a></td>
     <td>{{ calllog.date }}</td>
     <td>{{ calllog.note }}</td>
   </tr>

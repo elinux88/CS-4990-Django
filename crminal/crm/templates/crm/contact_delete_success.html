@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Deleted{% endblock %}
+
+{% block content %}
+<h1>contact deleted</h1>
+
+<p>That contact was successfully deleted. <a href="{% url 'crm:contact_index' %}">Go back to the list of contacts.</a></p>
+{% endblock %}

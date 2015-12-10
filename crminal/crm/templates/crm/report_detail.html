@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Report: {{ report.name }}{% endblock %}
+
+{% block content %}
+
+<h1>Report {{ report.value }}</h1>
+
+<div class="well">
+  <h2>{{ report.name }}</h2>
+  <p>{{ report.link }}</p>
+</div>
+
+<p>
+  <a href="{% url 'crm:report_update' report.id %}"><button class="btn btn-default">Edit this Report</button></a>
+  <a href="{% url 'crm:report_delete' report.id %}"><button class="btn btn-default">Delete this Report</button></a>
+</p>
+
+{% endblock %}

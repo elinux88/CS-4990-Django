@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Stage Deleted{% endblock %}
+
+{% block content %}
+<h1>Stage deleted</h1>
+
+<p>That stage was successfully deleted. <a href="{% url 'crm:stage_index' %}">Go back to the list of stages.</a></p>
+{% endblock %}
