@@ -105,6 +105,11 @@ class OpportunityView(ListView):
 class OpportunityDetailView(DetailView):
     model = Opportunity
 
+    def get_context_data(self, **kwargs):
+        context = super(OpportunityDetailView, self).get_context_data(**kwargs)
+        context['opportunity_stages'] = OpportunityStage.objects.all().filter(id = self.get_object().pk)
+        return context
+
 class OpportunityCreateView(CreateView):
     model = Opportunity
     fields = ['name', 'stage', 'contact', 'value', 'source']
@@ -115,7 +120,7 @@ class OpportunityUpdateView(UpdateView):
 
     def form_valid(self, form):
         opportunity = form.save(commit=False)
-        if opportunity.stage.value > self.get_object().stage.value:
+        if opportunity.stage.value != self.get_object().stage.value:
             opp_stage = OpportunityStage()
             opp_stage.opportunity = Opportunity.objects.all().filter(id = self.get_object().pk)[0]
             opp_stage.stage = form.cleaned_data['stage']

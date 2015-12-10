@@ -7,13 +7,34 @@
 <h1>Opportunity</h1>
 
 <div class="well">
-  <h2>{{ opportunity.name }}</h2>
-  <p>{{ opportunity.stage }}</p>
-  <p>{{ opportunity.contact }}</p>
+  <h2>{{ opportunity.name }} ({{ opportunity.stage }})</h2>
+  <p>Contact: {{ opportunity.contact }}</p>
   <p>Value: {{ opportunity.value }}</p>
   <p>Source: {{ opportunity.source }}</p>
   <p>User: {{ opportunity.user }}</p>
   <p>{{ opportunity.create_date }}</p>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Stage History
+    </div>
+    <div class="panel-body">
+        <table class="table">
+        <tr>
+            <th>Date</th>
+            <th>Stage</th>
+        </tr>
+        {% for opp_stage in opportunity_stages %}
+        <tr>
+          <td>{{ opp_stage.timestamp }}</td>
+          <td>{{ opp_stage.stage }}</td>
+        </tr>
+        {% empty %}
+        <tr><td>If you are seeing this...</td><td>Something is wrong</td></tr>
+        {% endfor %}
+        </table>
+    </div>
 </div>
 
 <p>
