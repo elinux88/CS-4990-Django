@@ -158,12 +158,15 @@ class SearchResultsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(SearchResultsView, self).get_context_data(**kwargs)
 
-        if not self.request.GET.get('q', None):
+        if not self.request.GET.get("q", None):
             return context
 
-        term = self.request.GET['q']
+        term = self.request.GET["q"]
         context['searchterm'] = term
-        context['opportunity_list'] = Opportunity.objects.filter(name_icontains = term)
+        context['opportunity_list'] = Opportunity.objects.filter(name__icontains = term)
+        context['contact_list'] = Contact.objects.filter(first_name__icontains = term)
+        context['company_list'] = Company.objects.filter(name__icontains = term)
+        context['calllog_list'] = CallLog.objects.filter(note__icontains = term)
 
         return context
 

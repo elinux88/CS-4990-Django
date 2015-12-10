@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Search CRM{% endblock %}
+{% block content %}
+
+{% if searchterm %}
+  <h1>Search Results for <b>{{ searchterm }}</b>:</h1>
+
+  <h3>Opportunities</h3>
+  {% for opp in opportunity_list %}
+    <p><a href="{% url 'crm:opportunity_detail' opp.id %}">{{ opp.name }}</a></p>
+  {% empty %}
+    <p>No opportunities found.</p>
+  {% endfor %}
+
+  <h3>Contacts</h3>
+  {% for contact in contact_list %}
+    <p><a href="{% url 'crm:contact_detail' contact.id %}">{{ contact.first_name }}</a></p>
+  {% empty %}
+    <p>No contacts found.</p>
+  {% endfor %}
+
+  <h3>Companies</h3>
+  {% for company in company_list %}
+    <p><a href="{% url 'crm:company_detail' company.id %}">{{ company.name }}</a></p>
+  {% empty %}
+    <p>No companies found.</p>
+  {% endfor %}
+
+  <h3>Call Logs</h3>
+  {% for call in calllog_list %}
+    <p><a href="{% url 'crm:call-log_detail' call.id %}">{{ call.note }}</a></p>
+  {% empty %}
+    <p>No call logs found.</p>
+  {% endfor %}
+
+{% else %}
+<div class="well">
+  <p>Please enter a search term.</p>
+  <form action="." method="get">
+    <input type="text" name="q" placeholder="Search term">
+    <button type="submit" class="btn">Search</button>
+  </form>
+</div>
+
+{% endif %}
+
+{% endblock %}

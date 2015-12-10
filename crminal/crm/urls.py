@@ -50,7 +50,7 @@ urlpatterns = [
     url(r'^reminder/(?P<pk>\d+)/delete/$', views.ReminderDeleteView.as_view(), name='reminder_delete'),
 
     url(r'^report/$', TemplateView.as_view(template_name = 'report_list.html')),
-    url(r'^search/$', TemplateView.as_view(template_name = 'search_results.html')),
+    url(r'^search/$', views.SearchResultsView.as_view(), name='search'),
 ]
 #urlpatterns = patterns('',
 #    url(r'^$', DashboardView.as_view(), name="dashboard"),
